@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { assets } from '../assets/assets';
 import ProductItem from '../components/ProductItem';
 import Title from '../components/Title';
 import { ShopContext } from '../context/ShopContext';
@@ -102,7 +101,7 @@ const Collection = () => {
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}
-              item={item._id}
+              id={item._id}
               name={item.name}
               price={item.price}
               image={item.image}
