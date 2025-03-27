@@ -127,7 +127,9 @@ function PlaceOrder() {
           <button
             onClick={() => navigate('/orders')}
             className="bg-black text-white px-16 py-3 text-sm"
-          ></button>
+          >
+            PLACE ORDER
+          </button>
         </div>
       </div>
     </div>
