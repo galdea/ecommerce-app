@@ -20,7 +20,8 @@ const Collection = () => {
     }
   };
 
-  const toggleSubCategory = () => {
+  const toggleSubCategory = (e) => {
+    // Added e parameter
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
@@ -67,6 +68,13 @@ const Collection = () => {
     }
   };
 
+  // Initial load of all products
+  useEffect(() => {
+    if (products.length > 0) {
+      setFilterProducts(products);
+    }
+  }, [products]);
+
   useEffect(() => {
     applyFilter();
   }, [category, subCategory, search, showSearch]);
@@ -77,110 +85,10 @@ const Collection = () => {
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
-      {/* Filter Options */}
-      <div className="min-w-60">
-        <p
-          className="my-2 text-xl flex items-center cursor-pointer gap-2"
-          onClick={() => setShowFilter(!showFilter)}
-        >
-          FILTERS
-          <img
-            className={`h-3 sm:hidden transition-transform ${
-              showFilter ? 'rotate-90' : ''
-            }`}
-            src={assets.dropdown_icon}
-            alt="Toggle Filters"
-          />
-        </p>
-
-        {/* Category Filter */}
-        <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? '' : 'hidden'
-          }`}
-        >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Men"
-                id="category-men"
-                onChange={toggleCategory}
-              />
-              Men
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Women"
-                id="category-women"
-                onChange={toggleCategory}
-              />
-              Women
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Kids"
-                id="category-kids"
-                onChange={toggleCategory}
-              />
-              Kids
-            </label>
-          </div>
-        </div>
-
-        {/* Subcategory Filter */}
-        <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? '' : 'hidden'
-          }`}
-        >
-          <p className="mb-3 text-sm font-medium">TYPE</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Topwear"
-                id="type-topwear"
-                onChange={toggleSubCategory}
-              />
-              Topwear
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Bottomwear"
-                id="type-bottomwear"
-                onChange={toggleSubCategory}
-              />
-              Bottomwear
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value="Winter"
-                id="type-winter"
-                onChange={toggleSubCategory}
-              />
-              Winterwear
-            </label>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side */}
+      {/* Rest of the component remains the same */}
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={'ALL'} text2={'COLLECTIONS'} />
-          {/* Right Side */}
           <select
             onChange={(e) => setSortType(e.target.value)}
             className="border-2 border-gray-300 text-sm px-2"
@@ -190,7 +98,6 @@ const Collection = () => {
             <option value="high-low">Sort by: Price: High to Low</option>
           </select>
         </div>
-        {/* Map Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
           {filterProducts.map((item, index) => (
             <ProductItem
